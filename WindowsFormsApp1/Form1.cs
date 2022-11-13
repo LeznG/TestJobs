@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
             UpdateOrganization();
             UpdateSubdivision();
+            UpdatePost();
         }
         /// <summary>
         /// Обвноление датагрида для таблицы Организации
@@ -46,13 +47,34 @@ namespace WindowsFormsApp1
                                   ,[Name_Org] 'Наименование подразделения'
                               FROM [dbo].[Subdivision]
                               LEFT JOIN [dbo].[Organization] ON [Organization].[Id] = [Subdivision].[Id_Organization]";
-                              
+
             SqlCommand command = new SqlCommand(query, myConnection);
             SqlDataAdapter da = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
             da.Fill(dt);
             dataGridWatchSubdivision.DataSource = dt;
             dataGridWatchSubdivision.Columns[0].Visible = false;
+            command.ExecuteNonQuery();
+            myConnection.Close();
+        }
+        public void UpdatePost()
+        {
+            myConnection.Open();
+            string query = @"SELECT [Id]
+                                   ,[Name_Post]
+                             FROM [dbo].[Post]";
+
+            SqlCommand command = new SqlCommand(query, myConnection);
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            dataGridWatchPost.DataSource = dt;
+            dataGridWatchPost.Columns[0].Visible = false;
+
+            dataGridWatchPost.Columns[1].Width = 200;
+
             command.ExecuteNonQuery();
             myConnection.Close();
         }
@@ -81,13 +103,13 @@ namespace WindowsFormsApp1
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@Name_orgn", NameOrg.Text);
                 cmd.Parameters.AddWithValue("@Address", AddsressOrg.Text);
-                cmd.Parameters.AddWithValue("Inn", InnOrg.Text);
+                cmd.Parameters.AddWithValue("@Inn", InnOrg.Text);
+
                 connection.Open();
                 cmd.ExecuteNonQuery();
+                connection.Close();
 
                 MessageBox.Show("Организация: " + NameOrg.Text + " Добавлена");
-
-                connection.Close();
             }
             UpdateOrganization();
         }
@@ -164,11 +186,11 @@ namespace WindowsFormsApp1
                 if (reader.HasRows) // если есть данные
                 {
                     reader.Read();
-                        
-                        textBox8.Text = reader.GetValue(1).ToString();
-                        textBox5.Text = reader.GetValue(2).ToString();
-                        textBox4.Text = reader.GetValue(3).ToString();
-                    
+
+                    textBox8.Text = reader.GetValue(1).ToString();
+                    textBox5.Text = reader.GetValue(2).ToString();
+                    textBox4.Text = reader.GetValue(3).ToString();
+
                 }
                 connection.Close();
             }
@@ -196,5 +218,301 @@ namespace WindowsFormsApp1
             UpdateOrganization();
         }
 
+        /// <summary>
+        /// Добавление нового подразделение
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddSubdivision_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Subdivision]" +
+                                                        "([Id_Organization]" +
+                                                        ",[Name_Org])" +
+                                                    "VALUES" +
+                                                       "(@Id_Organization, " +
+                                                        "@Name_Org)");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                connection.Open();
+                string query = @"SELECT [Id]
+                                        ,[Name_orgn]
+                                        ,[Address]
+                                        ,[Inn]
+                                    FROM [dbo].[Organization] WHERE [Name_orgn] ='" + OrganizationFK.Text + "'";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                string qwe;
+
+                if (reader.HasRows) // если есть данные
+                {
+                    reader.Read();
+                    qwe = reader.GetValue(0).ToString();
+                    cmd.Parameters.AddWithValue("@Id_Organization", qwe);
+                    reader.Close();
+                }
+
+                cmd.Parameters.AddWithValue("@Name_Org", NameSubdivision.Text);
+
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+                MessageBox.Show("Организация: " + NameSubdivision.Text + " Добавлена");
+            }
+            UpdateSubdivision();
+        }
+        /// <summary>
+        /// Загрузка Combobox для таблицы подразделение
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Subdivision_Click(object sender, EventArgs e)
+        {
+            OrganizationFK.DropDownStyle = ComboBoxStyle.DropDownList;
+            UpdateSubdivison.DropDownStyle = ComboBoxStyle.DropDownList;
+            DeleteSubdivision.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                string query = @"SELECT [Subdivision].[Id]
+                                  ,[Name_orgn]
+                                  ,[Name_Org]
+                              FROM [dbo].[Subdivision]
+                              LEFT JOIN [dbo].[Organization] ON [Organization].[Id] = [Subdivision].[Id_Organization]";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                connection.Open();
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Subdivision");
+
+                OrganizationFK.ValueMember = "Id_Organization";
+                OrganizationFK.DisplayMember = "Name_orgn";
+                OrganizationFK.DataSource = ds.Tables["Subdivision"];
+
+                UpdateSubdivison.ValueMember = "Id";
+                UpdateSubdivison.DisplayMember = "Name_org";
+                UpdateSubdivison.DataSource = ds.Tables["Subdivision"];
+
+                DeleteSubdivision.ValueMember = "Id";
+                DeleteSubdivision.DisplayMember = "Name_org";
+                DeleteSubdivision.DataSource = ds.Tables["Subdivision"];
+
+                connection.Close();
+
+            }
+        }
+        /// <summary>
+        /// Редактирование Подразделения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UdpSubdivision_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                //comboBox1.SelectedValue.ToString()
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE [dbo].[Subdivision] SET " +
+                                                       "Name_Org = @Name_Org " +
+                                                       "WHERE Name_Org = '" + UpdateSubdivison.Text + "'");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Name_Org", UpdNameSub.Text);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            MessageBox.Show("Подразделение: " + UpdNameSub.Text + " Отредактирована");
+            UpdateSubdivision();
+        }
+        /// <summary>
+        /// Удаление подразделения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button5_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM [dbo].[Subdivision] WHERE [Name_Org] = '" + DeleteSubdivision.Text + "'");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+                MessageBox.Show("Организация: " + DeleteSubdivision.Text + " Удалена");
+            }
+
+            UpdateSubdivision();
+        }
+        /// <summary>
+        /// Заполнение lable от выбраного значения в combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdateSubdivison_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                string query = @"SELECT [Subdivision].[Id]
+                                  ,[Name_orgn]
+                                  ,[Name_Org]
+                              FROM [dbo].[Subdivision]
+                              LEFT JOIN [dbo].[Organization] ON [Organization].[Id] = [Subdivision].[Id_Organization]
+                                WHERE [Name_Org] = '" + UpdateSubdivison.Text + "'";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                connection.Open();
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Subdivision");
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows) // если есть данные
+                {
+                    reader.Read();
+
+                    UpdNameSub.Text = reader.GetValue(2).ToString();
+
+                }
+            }
+
+
+        }
+        /// <summary>
+        /// Добавление новой должности
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddPost_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Post]" +
+                                                    "([Name_Post]) " +
+                                               "VALUES (@Name_Post)");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Name_Post", AddNamePost.Text);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+                MessageBox.Show("Должность: " + AddNamePost.Text + " Добавлена");
+            }
+            UpdatePost();
+        }
+        /// <summary>
+        /// Заполнение combobox в должностях при переходе во вкладку
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Post_Click(object sender, EventArgs e)
+        {
+            UpdPostBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            DeletePostBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                string query = @"SELECT [Id]
+                                        ,[Name_Post]
+                                 FROM [dbo].[Post]";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                connection.Open();
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Post");
+
+                UpdPostBox.ValueMember = "Id";
+                UpdPostBox.DisplayMember = "Name_Post";
+                UpdPostBox.DataSource = ds.Tables["Post"];
+
+                DeletePostBox.ValueMember = "Id";
+                DeletePostBox.DisplayMember = "Name_Post";
+                DeletePostBox.DataSource = ds.Tables["Post"];
+
+                connection.Close();
+
+            }
+        }
+        /// <summary>
+        /// Заполнение lable от выбраного значения в combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UpdPostBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                string query = @"SELECT [Id]
+                                        ,[Name_Post]
+                                 FROM [dbo].[Post]
+                                    WHERE[Name_Post] = '" + UpdPostBox.Text + "'";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                connection.Open();
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Post");
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows) // если есть данные
+                {
+                    reader.Read();
+
+                    UpdPostText.Text = reader.GetValue(1).ToString();
+
+                }
+            }
+        }
+        /// <summary>
+        /// Редактирование выбранной должности
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UdpPostButton_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                //comboBox1.SelectedValue.ToString()
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE [dbo].[Post] SET " +
+                                                       "Name_Post = @Name_Post " +
+                                                       "WHERE Name_Post = '" + UpdPostBox.Text + "'");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Name_Post", UpdPostText.Text);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            MessageBox.Show("Должность: " + UpdPostText.Text + " изменена");
+            UpdatePost();
+        }
+        /// <summary>
+        /// Удаление выбранной должности
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM [dbo].[Post] WHERE [Name_Post] = '" + UpdPostBox.Text + "'");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+                MessageBox.Show("Должность: " + UpdPostBox.Text + " Удалена");
+            }
+
+            UpdatePost();
+        }
     }
 }
