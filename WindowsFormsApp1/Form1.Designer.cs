@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.TabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -99,7 +99,51 @@
             this.DeletePostBox = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.DeleteButton = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
+            this.dataGridWatchEmployee = new System.Windows.Forms.DataGridView();
+            this.Employee = new System.Windows.Forms.TabControl();
+            this.tabPage18 = new System.Windows.Forms.TabPage();
+            this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.tabPage20 = new System.Windows.Forms.TabPage();
+            this.tabPage21 = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.AddEmployeeButton = new System.Windows.Forms.Button();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.AddEmloyeeSubBox = new System.Windows.Forms.ComboBox();
+            this.AddEmployeePostBox = new System.Windows.Forms.ComboBox();
+            this.EditEmployeePostBox = new System.Windows.Forms.ComboBox();
+            this.EditEmloyeeSubBox = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
+            this.EditEmployeeButton = new System.Windows.Forms.Button();
+            this.AddFioText = new System.Windows.Forms.TextBox();
+            this.EditFioEmloyeeSubBox = new System.Windows.Forms.ComboBox();
+            this.DelEmloyeeSubBox = new System.Windows.Forms.ComboBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.DeleteEmployeeButton = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.EditFioEmployee = new System.Windows.Forms.TextBox();
+            this.mySqlDataAdapter1 = new MySql.Data.MySqlClient.MySqlDataAdapter();
+            this.AddDOBEmployeeData = new System.Windows.Forms.DateTimePicker();
+            this.AddEmpEmployeeData = new System.Windows.Forms.DateTimePicker();
+            this.EditDOBEmployeeData = new System.Windows.Forms.DateTimePicker();
+            this.EditEmpEmployeeData = new System.Windows.Forms.DateTimePicker();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage22 = new System.Windows.Forms.TabPage();
+            this.tabPage23 = new System.Windows.Forms.TabPage();
+            this.DeleteTableSheet = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.dataGridWatchTableSheet = new System.Windows.Forms.DataGridView();
+            this.label21 = new System.Windows.Forms.Label();
+            this.DatetableBox = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.AddTableSheet = new System.Windows.Forms.Button();
+            this.TabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -115,6 +159,8 @@
             this.tabPage12.SuspendLayout();
             this.tabPage13.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
+            this.tabPage9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timesheetDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).BeginInit();
             this.Post.SuspendLayout();
@@ -123,21 +169,33 @@
             this.tabPage16.SuspendLayout();
             this.tabPage17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridWatchPost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridWatchEmployee)).BeginInit();
+            this.Employee.SuspendLayout();
+            this.tabPage18.SuspendLayout();
+            this.tabPage19.SuspendLayout();
+            this.tabPage20.SuspendLayout();
+            this.tabPage21.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.tabPage22.SuspendLayout();
+            this.tabPage23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridWatchTableSheet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // TabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Controls.Add(this.tabPage8);
-            this.tabControl1.Controls.Add(this.tabPage9);
-            this.tabControl1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1196, 505);
-            this.tabControl1.TabIndex = 1;
+            this.TabControl1.Controls.Add(this.tabPage1);
+            this.TabControl1.Controls.Add(this.tabPage2);
+            this.TabControl1.Controls.Add(this.tabPage7);
+            this.TabControl1.Controls.Add(this.tabPage8);
+            this.TabControl1.Controls.Add(this.tabPage9);
+            this.TabControl1.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TabControl1.Location = new System.Drawing.Point(12, 12);
+            this.TabControl1.Name = "TabControl1";
+            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.Size = new System.Drawing.Size(1447, 494);
+            this.TabControl1.TabIndex = 1;
+            this.TabControl1.Click += new System.EventHandler(this.TabControl1_Click);
             // 
             // tabPage1
             // 
@@ -145,7 +203,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1188, 477);
+            this.tabPage1.Size = new System.Drawing.Size(1439, 466);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Организации";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -158,10 +216,10 @@
             this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabControl2.ItemSize = new System.Drawing.Size(77, 18);
-            this.tabControl2.Location = new System.Drawing.Point(3, 3);
+            this.tabControl2.Location = new System.Drawing.Point(3, 4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1110, 467);
+            this.tabControl2.Size = new System.Drawing.Size(1430, 467);
             this.tabControl2.TabIndex = 0;
             this.tabControl2.Click += new System.EventHandler(this.LoadCombobox_Click);
             // 
@@ -171,7 +229,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1102, 441);
+            this.tabPage3.Size = new System.Drawing.Size(1422, 441);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Просмотр";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -184,7 +242,7 @@
             this.dataGridWatchOrganization.Location = new System.Drawing.Point(6, 6);
             this.dataGridWatchOrganization.Name = "dataGridWatchOrganization";
             this.dataGridWatchOrganization.ReadOnly = true;
-            this.dataGridWatchOrganization.Size = new System.Drawing.Size(1156, 429);
+            this.dataGridWatchOrganization.Size = new System.Drawing.Size(1410, 429);
             this.dataGridWatchOrganization.TabIndex = 0;
             // 
             // tabPage4
@@ -199,7 +257,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1102, 441);
+            this.tabPage4.Size = new System.Drawing.Size(1422, 441);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Добавление";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -279,7 +337,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1102, 441);
+            this.tabPage5.Size = new System.Drawing.Size(1422, 441);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Редактирование";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -372,7 +430,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1102, 441);
+            this.tabPage6.Size = new System.Drawing.Size(1422, 441);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Удаление";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -411,7 +469,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1188, 477);
+            this.tabPage2.Size = new System.Drawing.Size(1439, 466);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Подразделения";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -424,10 +482,10 @@
             this.Subdivision.Controls.Add(this.tabPage13);
             this.Subdivision.Font = new System.Drawing.Font("Times New Roman", 9.75F);
             this.Subdivision.ItemSize = new System.Drawing.Size(77, 18);
-            this.Subdivision.Location = new System.Drawing.Point(6, 6);
+            this.Subdivision.Location = new System.Drawing.Point(1, 3);
             this.Subdivision.Name = "Subdivision";
             this.Subdivision.SelectedIndex = 0;
-            this.Subdivision.Size = new System.Drawing.Size(1179, 467);
+            this.Subdivision.Size = new System.Drawing.Size(1432, 467);
             this.Subdivision.TabIndex = 1;
             this.Subdivision.Click += new System.EventHandler(this.Subdivision_Click);
             // 
@@ -437,7 +495,7 @@
             this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(1171, 441);
+            this.tabPage10.Size = new System.Drawing.Size(1424, 441);
             this.tabPage10.TabIndex = 0;
             this.tabPage10.Text = "Просмотр";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -450,7 +508,7 @@
             this.dataGridWatchSubdivision.Location = new System.Drawing.Point(6, 6);
             this.dataGridWatchSubdivision.Name = "dataGridWatchSubdivision";
             this.dataGridWatchSubdivision.ReadOnly = true;
-            this.dataGridWatchSubdivision.Size = new System.Drawing.Size(1159, 429);
+            this.dataGridWatchSubdivision.Size = new System.Drawing.Size(1412, 429);
             this.dataGridWatchSubdivision.TabIndex = 0;
             // 
             // tabPage11
@@ -463,7 +521,7 @@
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(1171, 441);
+            this.tabPage11.Size = new System.Drawing.Size(1424, 441);
             this.tabPage11.TabIndex = 1;
             this.tabPage11.Text = "Добавление";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -621,27 +679,29 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 24);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(1188, 477);
+            this.tabPage7.Size = new System.Drawing.Size(1439, 466);
             this.tabPage7.TabIndex = 2;
             this.tabPage7.Text = "Должности";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.Employee);
             this.tabPage8.Location = new System.Drawing.Point(4, 24);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1188, 477);
+            this.tabPage8.Size = new System.Drawing.Size(1439, 466);
             this.tabPage8.TabIndex = 3;
             this.tabPage8.Text = "Сотрудники";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // tabPage9
             // 
+            this.tabPage9.Controls.Add(this.tabControl3);
             this.tabPage9.Location = new System.Drawing.Point(4, 24);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(1188, 477);
+            this.tabPage9.Size = new System.Drawing.Size(1439, 466);
             this.tabPage9.TabIndex = 4;
             this.tabPage9.Text = "Табель учёта времени";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -666,10 +726,10 @@
             this.Post.Controls.Add(this.tabPage15);
             this.Post.Controls.Add(this.tabPage16);
             this.Post.Controls.Add(this.tabPage17);
-            this.Post.Location = new System.Drawing.Point(6, 6);
+            this.Post.Location = new System.Drawing.Point(3, 3);
             this.Post.Name = "Post";
             this.Post.SelectedIndex = 0;
-            this.Post.Size = new System.Drawing.Size(1179, 465);
+            this.Post.Size = new System.Drawing.Size(1430, 468);
             this.Post.TabIndex = 0;
             this.Post.Click += new System.EventHandler(this.Post_Click);
             // 
@@ -679,7 +739,7 @@
             this.tabPage14.Location = new System.Drawing.Point(4, 24);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(1171, 437);
+            this.tabPage14.Size = new System.Drawing.Size(1174, 440);
             this.tabPage14.TabIndex = 0;
             this.tabPage14.Text = "Просмотр";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -692,7 +752,7 @@
             this.tabPage15.Location = new System.Drawing.Point(4, 24);
             this.tabPage15.Name = "tabPage15";
             this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage15.Size = new System.Drawing.Size(1171, 437);
+            this.tabPage15.Size = new System.Drawing.Size(1174, 440);
             this.tabPage15.TabIndex = 1;
             this.tabPage15.Text = "Добавление";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -707,7 +767,7 @@
             this.tabPage16.Location = new System.Drawing.Point(4, 24);
             this.tabPage16.Name = "tabPage16";
             this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage16.Size = new System.Drawing.Size(1171, 437);
+            this.tabPage16.Size = new System.Drawing.Size(1422, 440);
             this.tabPage16.TabIndex = 2;
             this.tabPage16.Text = "Редактирование";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -720,7 +780,7 @@
             this.tabPage17.Location = new System.Drawing.Point(4, 24);
             this.tabPage17.Name = "tabPage17";
             this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage17.Size = new System.Drawing.Size(1171, 437);
+            this.tabPage17.Size = new System.Drawing.Size(1174, 440);
             this.tabPage17.TabIndex = 3;
             this.tabPage17.Text = "Удаление";
             this.tabPage17.UseVisualStyleBackColor = true;
@@ -833,16 +893,460 @@
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
+            // dataGridWatchEmployee
+            // 
+            this.dataGridWatchEmployee.AllowUserToAddRows = false;
+            this.dataGridWatchEmployee.AllowUserToDeleteRows = false;
+            this.dataGridWatchEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridWatchEmployee.Location = new System.Drawing.Point(6, 6);
+            this.dataGridWatchEmployee.Name = "dataGridWatchEmployee";
+            this.dataGridWatchEmployee.ReadOnly = true;
+            this.dataGridWatchEmployee.Size = new System.Drawing.Size(1410, 425);
+            this.dataGridWatchEmployee.TabIndex = 0;
+            // 
+            // Employee
+            // 
+            this.Employee.Controls.Add(this.tabPage18);
+            this.Employee.Controls.Add(this.tabPage19);
+            this.Employee.Controls.Add(this.tabPage20);
+            this.Employee.Controls.Add(this.tabPage21);
+            this.Employee.Location = new System.Drawing.Point(3, 3);
+            this.Employee.Name = "Employee";
+            this.Employee.SelectedIndex = 0;
+            this.Employee.Size = new System.Drawing.Size(1430, 465);
+            this.Employee.TabIndex = 1;
+            this.Employee.Click += new System.EventHandler(this.Employee_Click);
+            // 
+            // tabPage18
+            // 
+            this.tabPage18.Controls.Add(this.dataGridWatchEmployee);
+            this.tabPage18.Location = new System.Drawing.Point(4, 24);
+            this.tabPage18.Name = "tabPage18";
+            this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage18.Size = new System.Drawing.Size(1422, 437);
+            this.tabPage18.TabIndex = 0;
+            this.tabPage18.Text = "Просмотр";
+            this.tabPage18.UseVisualStyleBackColor = true;
+            // 
+            // tabPage19
+            // 
+            this.tabPage19.Controls.Add(this.AddEmpEmployeeData);
+            this.tabPage19.Controls.Add(this.AddDOBEmployeeData);
+            this.tabPage19.Controls.Add(this.AddEmployeePostBox);
+            this.tabPage19.Controls.Add(this.AddEmloyeeSubBox);
+            this.tabPage19.Controls.Add(this.label23);
+            this.tabPage19.Controls.Add(this.label22);
+            this.tabPage19.Controls.Add(this.AddFioText);
+            this.tabPage19.Controls.Add(this.label18);
+            this.tabPage19.Controls.Add(this.label19);
+            this.tabPage19.Controls.Add(this.label20);
+            this.tabPage19.Controls.Add(this.AddEmployeeButton);
+            this.tabPage19.Location = new System.Drawing.Point(4, 24);
+            this.tabPage19.Name = "tabPage19";
+            this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage19.Size = new System.Drawing.Size(1422, 437);
+            this.tabPage19.TabIndex = 1;
+            this.tabPage19.Text = "Добавление";
+            this.tabPage19.UseVisualStyleBackColor = true;
+            // 
+            // tabPage20
+            // 
+            this.tabPage20.Controls.Add(this.EditEmpEmployeeData);
+            this.tabPage20.Controls.Add(this.EditDOBEmployeeData);
+            this.tabPage20.Controls.Add(this.EditFioEmployee);
+            this.tabPage20.Controls.Add(this.label29);
+            this.tabPage20.Controls.Add(this.EditFioEmloyeeSubBox);
+            this.tabPage20.Controls.Add(this.EditEmployeePostBox);
+            this.tabPage20.Controls.Add(this.EditEmloyeeSubBox);
+            this.tabPage20.Controls.Add(this.label24);
+            this.tabPage20.Controls.Add(this.label25);
+            this.tabPage20.Controls.Add(this.label27);
+            this.tabPage20.Controls.Add(this.label28);
+            this.tabPage20.Controls.Add(this.label);
+            this.tabPage20.Controls.Add(this.EditEmployeeButton);
+            this.tabPage20.Location = new System.Drawing.Point(4, 24);
+            this.tabPage20.Name = "tabPage20";
+            this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage20.Size = new System.Drawing.Size(1422, 437);
+            this.tabPage20.TabIndex = 2;
+            this.tabPage20.Text = "Редактирование";
+            this.tabPage20.UseVisualStyleBackColor = true;
+            // 
+            // tabPage21
+            // 
+            this.tabPage21.Controls.Add(this.DelEmloyeeSubBox);
+            this.tabPage21.Controls.Add(this.label30);
+            this.tabPage21.Controls.Add(this.DeleteEmployeeButton);
+            this.tabPage21.Location = new System.Drawing.Point(4, 24);
+            this.tabPage21.Name = "tabPage21";
+            this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage21.Size = new System.Drawing.Size(1168, 437);
+            this.tabPage21.TabIndex = 3;
+            this.tabPage21.Text = "Удаление";
+            this.tabPage21.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label18.Location = new System.Drawing.Point(3, 85);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(97, 15);
+            this.label18.TabIndex = 10;
+            this.label18.Text = "Фио сотрудника";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label19.Location = new System.Drawing.Point(3, 46);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(108, 15);
+            this.label19.TabIndex = 9;
+            this.label19.Text = "Выбор должности";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label20.Location = new System.Drawing.Point(3, 9);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(132, 15);
+            this.label20.TabIndex = 8;
+            this.label20.Text = "Выбор Подразделения";
+            // 
+            // AddEmployeeButton
+            // 
+            this.AddEmployeeButton.Location = new System.Drawing.Point(6, 193);
+            this.AddEmployeeButton.Name = "AddEmployeeButton";
+            this.AddEmployeeButton.Size = new System.Drawing.Size(164, 23);
+            this.AddEmployeeButton.TabIndex = 7;
+            this.AddEmployeeButton.Text = "Добавить сотрудника";
+            this.AddEmployeeButton.UseVisualStyleBackColor = true;
+            this.AddEmployeeButton.Click += new System.EventHandler(this.AddEmployeeButton_Click);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label22.Location = new System.Drawing.Point(4, 116);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(91, 15);
+            this.label22.TabIndex = 15;
+            this.label22.Text = "Дата рождения";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label23.Location = new System.Drawing.Point(4, 151);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(132, 15);
+            this.label23.TabIndex = 16;
+            this.label23.Text = "Дата Трудоустройства";
+            // 
+            // AddEmloyeeSubBox
+            // 
+            this.AddEmloyeeSubBox.FormattingEnabled = true;
+            this.AddEmloyeeSubBox.Location = new System.Drawing.Point(187, 9);
+            this.AddEmloyeeSubBox.Name = "AddEmloyeeSubBox";
+            this.AddEmloyeeSubBox.Size = new System.Drawing.Size(350, 23);
+            this.AddEmloyeeSubBox.TabIndex = 20;
+            // 
+            // AddEmployeePostBox
+            // 
+            this.AddEmployeePostBox.FormattingEnabled = true;
+            this.AddEmployeePostBox.Location = new System.Drawing.Point(187, 46);
+            this.AddEmployeePostBox.Name = "AddEmployeePostBox";
+            this.AddEmployeePostBox.Size = new System.Drawing.Size(350, 23);
+            this.AddEmployeePostBox.TabIndex = 21;
+            // 
+            // EditEmployeePostBox
+            // 
+            this.EditEmployeePostBox.FormattingEnabled = true;
+            this.EditEmployeePostBox.Location = new System.Drawing.Point(186, 79);
+            this.EditEmployeePostBox.Name = "EditEmployeePostBox";
+            this.EditEmployeePostBox.Size = new System.Drawing.Size(350, 23);
+            this.EditEmployeePostBox.TabIndex = 34;
+            // 
+            // EditEmloyeeSubBox
+            // 
+            this.EditEmloyeeSubBox.FormattingEnabled = true;
+            this.EditEmloyeeSubBox.Location = new System.Drawing.Point(186, 41);
+            this.EditEmloyeeSubBox.Name = "EditEmloyeeSubBox";
+            this.EditEmloyeeSubBox.Size = new System.Drawing.Size(350, 23);
+            this.EditEmloyeeSubBox.TabIndex = 33;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label24.Location = new System.Drawing.Point(3, 189);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(132, 15);
+            this.label24.TabIndex = 29;
+            this.label24.Text = "Дата Трудоустройства";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label25.Location = new System.Drawing.Point(3, 154);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(91, 15);
+            this.label25.TabIndex = 28;
+            this.label25.Text = "Дата рождения";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label27.Location = new System.Drawing.Point(3, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(111, 15);
+            this.label27.TabIndex = 25;
+            this.label27.Text = "Выбор сотрудника";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label28.Location = new System.Drawing.Point(3, 79);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(108, 15);
+            this.label28.TabIndex = 24;
+            this.label28.Text = "Выбор должности";
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label.Location = new System.Drawing.Point(3, 41);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(132, 15);
+            this.label.TabIndex = 23;
+            this.label.Text = "Выбор Подразделения";
+            // 
+            // EditEmployeeButton
+            // 
+            this.EditEmployeeButton.Location = new System.Drawing.Point(6, 231);
+            this.EditEmployeeButton.Name = "EditEmployeeButton";
+            this.EditEmployeeButton.Size = new System.Drawing.Size(164, 23);
+            this.EditEmployeeButton.TabIndex = 22;
+            this.EditEmployeeButton.Text = "Редактировать";
+            this.EditEmployeeButton.UseVisualStyleBackColor = true;
+            this.EditEmployeeButton.Click += new System.EventHandler(this.EditEmployeeButton_Click);
+            // 
+            // AddFioText
+            // 
+            this.AddFioText.Location = new System.Drawing.Point(187, 78);
+            this.AddFioText.Name = "AddFioText";
+            this.AddFioText.Size = new System.Drawing.Size(350, 22);
+            this.AddFioText.TabIndex = 13;
+            // 
+            // EditFioEmloyeeSubBox
+            // 
+            this.EditFioEmloyeeSubBox.FormattingEnabled = true;
+            this.EditFioEmloyeeSubBox.Location = new System.Drawing.Point(186, 9);
+            this.EditFioEmloyeeSubBox.Name = "EditFioEmloyeeSubBox";
+            this.EditFioEmloyeeSubBox.Size = new System.Drawing.Size(350, 23);
+            this.EditFioEmloyeeSubBox.TabIndex = 35;
+            this.EditFioEmloyeeSubBox.SelectedIndexChanged += new System.EventHandler(this.EditFioEmloyeeSubBox_SelectedIndexChanged);
+            // 
+            // DelEmloyeeSubBox
+            // 
+            this.DelEmloyeeSubBox.FormattingEnabled = true;
+            this.DelEmloyeeSubBox.Location = new System.Drawing.Point(186, 7);
+            this.DelEmloyeeSubBox.Name = "DelEmloyeeSubBox";
+            this.DelEmloyeeSubBox.Size = new System.Drawing.Size(350, 23);
+            this.DelEmloyeeSubBox.TabIndex = 38;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label30.Location = new System.Drawing.Point(3, 7);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(111, 15);
+            this.label30.TabIndex = 37;
+            this.label30.Text = "Выбор сотрудника";
+            // 
+            // DeleteEmployeeButton
+            // 
+            this.DeleteEmployeeButton.Location = new System.Drawing.Point(0, 43);
+            this.DeleteEmployeeButton.Name = "DeleteEmployeeButton";
+            this.DeleteEmployeeButton.Size = new System.Drawing.Size(160, 23);
+            this.DeleteEmployeeButton.TabIndex = 36;
+            this.DeleteEmployeeButton.Text = "Удалить";
+            this.DeleteEmployeeButton.UseVisualStyleBackColor = true;
+            this.DeleteEmployeeButton.Click += new System.EventHandler(this.DeleteEmployeeButton_Click);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Times New Roman", 9.75F);
+            this.label29.Location = new System.Drawing.Point(4, 115);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(97, 15);
+            this.label29.TabIndex = 36;
+            this.label29.Text = "Фио сотрудника";
+            // 
+            // EditFioEmployee
+            // 
+            this.EditFioEmployee.Location = new System.Drawing.Point(186, 115);
+            this.EditFioEmployee.Name = "EditFioEmployee";
+            this.EditFioEmployee.Size = new System.Drawing.Size(350, 22);
+            this.EditFioEmployee.TabIndex = 37;
+            // 
+            // mySqlDataAdapter1
+            // 
+            this.mySqlDataAdapter1.DeleteCommand = null;
+            this.mySqlDataAdapter1.InsertCommand = null;
+            this.mySqlDataAdapter1.SelectCommand = null;
+            this.mySqlDataAdapter1.UpdateCommand = null;
+            // 
+            // AddDOBEmployeeData
+            // 
+            this.AddDOBEmployeeData.Location = new System.Drawing.Point(187, 116);
+            this.AddDOBEmployeeData.Name = "AddDOBEmployeeData";
+            this.AddDOBEmployeeData.Size = new System.Drawing.Size(350, 22);
+            this.AddDOBEmployeeData.TabIndex = 22;
+            // 
+            // AddEmpEmployeeData
+            // 
+            this.AddEmpEmployeeData.Location = new System.Drawing.Point(187, 151);
+            this.AddEmpEmployeeData.Name = "AddEmpEmployeeData";
+            this.AddEmpEmployeeData.Size = new System.Drawing.Size(350, 22);
+            this.AddEmpEmployeeData.TabIndex = 23;
+            // 
+            // EditDOBEmployeeData
+            // 
+            this.EditDOBEmployeeData.Location = new System.Drawing.Point(186, 154);
+            this.EditDOBEmployeeData.Name = "EditDOBEmployeeData";
+            this.EditDOBEmployeeData.Size = new System.Drawing.Size(350, 22);
+            this.EditDOBEmployeeData.TabIndex = 38;
+            // 
+            // EditEmpEmployeeData
+            // 
+            this.EditEmpEmployeeData.Location = new System.Drawing.Point(186, 189);
+            this.EditEmpEmployeeData.Name = "EditEmpEmployeeData";
+            this.EditEmpEmployeeData.Size = new System.Drawing.Size(350, 22);
+            this.EditEmpEmployeeData.TabIndex = 39;
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.tabPage22);
+            this.tabControl3.Controls.Add(this.tabPage23);
+            this.tabControl3.Location = new System.Drawing.Point(6, 6);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(1427, 454);
+            this.tabControl3.TabIndex = 0;
+            // 
+            // tabPage22
+            // 
+            this.tabPage22.Controls.Add(this.label21);
+            this.tabPage22.Controls.Add(this.DatetableBox);
+            this.tabPage22.Controls.Add(this.dataGridWatchTableSheet);
+            this.tabPage22.Controls.Add(this.button4);
+            this.tabPage22.Location = new System.Drawing.Point(4, 24);
+            this.tabPage22.Name = "tabPage22";
+            this.tabPage22.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage22.Size = new System.Drawing.Size(1419, 426);
+            this.tabPage22.TabIndex = 0;
+            this.tabPage22.Text = "Просмотр табеля";
+            this.tabPage22.UseVisualStyleBackColor = true;
+            // 
+            // tabPage23
+            // 
+            this.tabPage23.Controls.Add(this.AddTableSheet);
+            this.tabPage23.Controls.Add(this.dataGridView1);
+            this.tabPage23.Controls.Add(this.DeleteTableSheet);
+            this.tabPage23.Location = new System.Drawing.Point(4, 24);
+            this.tabPage23.Name = "tabPage23";
+            this.tabPage23.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage23.Size = new System.Drawing.Size(1419, 426);
+            this.tabPage23.TabIndex = 1;
+            this.tabPage23.Text = "Работа с табелем";
+            this.tabPage23.UseVisualStyleBackColor = true;
+            // 
+            // DeleteTableSheet
+            // 
+            this.DeleteTableSheet.Location = new System.Drawing.Point(1287, 3);
+            this.DeleteTableSheet.Name = "DeleteTableSheet";
+            this.DeleteTableSheet.Size = new System.Drawing.Size(126, 25);
+            this.DeleteTableSheet.TabIndex = 0;
+            this.DeleteTableSheet.Text = "Удалить табель";
+            this.DeleteTableSheet.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(1259, 6);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(154, 27);
+            this.button4.TabIndex = 0;
+            this.button4.Text = "Экспорт табеля в excel";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // dataGridWatchTableSheet
+            // 
+            this.dataGridWatchTableSheet.AllowUserToAddRows = false;
+            this.dataGridWatchTableSheet.AllowUserToDeleteRows = false;
+            this.dataGridWatchTableSheet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridWatchTableSheet.Location = new System.Drawing.Point(6, 39);
+            this.dataGridWatchTableSheet.Name = "dataGridWatchTableSheet";
+            this.dataGridWatchTableSheet.ReadOnly = true;
+            this.dataGridWatchTableSheet.Size = new System.Drawing.Size(1407, 381);
+            this.dataGridWatchTableSheet.TabIndex = 1;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(6, 13);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(138, 15);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "Выберите месяц табеля";
+            // 
+            // DatetableBox
+            // 
+            this.DatetableBox.FormattingEnabled = true;
+            this.DatetableBox.Location = new System.Drawing.Point(152, 10);
+            this.DatetableBox.Name = "DatetableBox";
+            this.DatetableBox.Size = new System.Drawing.Size(238, 23);
+            this.DatetableBox.TabIndex = 2;
+            this.DatetableBox.SelectedIndexChanged += new System.EventHandler(this.DatetableBox_SelectedIndexChanged);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 34);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(1407, 386);
+            this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
+            // 
+            // AddTableSheet
+            // 
+            this.AddTableSheet.Location = new System.Drawing.Point(6, 6);
+            this.AddTableSheet.Name = "AddTableSheet";
+            this.AddTableSheet.Size = new System.Drawing.Size(126, 25);
+            this.AddTableSheet.TabIndex = 2;
+            this.AddTableSheet.Text = "Создать табель";
+            this.AddTableSheet.UseVisualStyleBackColor = true;
+            this.AddTableSheet.Click += new System.EventHandler(this.AddTableSheet_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1501, 529);
-            this.Controls.Add(this.tabControl1);
+            this.ClientSize = new System.Drawing.Size(1462, 510);
+            this.Controls.Add(this.TabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.TabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -864,6 +1368,8 @@
             this.tabPage13.ResumeLayout(false);
             this.tabPage13.PerformLayout();
             this.tabPage7.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.timesheetDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.organizationBindingSource)).EndInit();
             this.Post.ResumeLayout(false);
@@ -875,12 +1381,27 @@
             this.tabPage17.ResumeLayout(false);
             this.tabPage17.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridWatchPost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridWatchEmployee)).EndInit();
+            this.Employee.ResumeLayout(false);
+            this.tabPage18.ResumeLayout(false);
+            this.tabPage19.ResumeLayout(false);
+            this.tabPage19.PerformLayout();
+            this.tabPage20.ResumeLayout(false);
+            this.tabPage20.PerformLayout();
+            this.tabPage21.ResumeLayout(false);
+            this.tabPage21.PerformLayout();
+            this.tabControl3.ResumeLayout(false);
+            this.tabPage22.ResumeLayout(false);
+            this.tabPage22.PerformLayout();
+            this.tabPage23.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridWatchTableSheet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl TabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage3;
@@ -950,6 +1471,50 @@
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.ComboBox DeletePostBox;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TabControl Employee;
+        private System.Windows.Forms.TabPage tabPage18;
+        private System.Windows.Forms.DataGridView dataGridWatchEmployee;
+        private System.Windows.Forms.TabPage tabPage19;
+        private System.Windows.Forms.ComboBox AddEmployeePostBox;
+        private System.Windows.Forms.ComboBox AddEmloyeeSubBox;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button AddEmployeeButton;
+        private System.Windows.Forms.TabPage tabPage20;
+        private System.Windows.Forms.TabPage tabPage21;
+        private System.Windows.Forms.TextBox AddFioText;
+        private System.Windows.Forms.ComboBox EditFioEmloyeeSubBox;
+        private System.Windows.Forms.ComboBox EditEmployeePostBox;
+        private System.Windows.Forms.ComboBox EditEmloyeeSubBox;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Button EditEmployeeButton;
+        private System.Windows.Forms.ComboBox DelEmloyeeSubBox;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button DeleteEmployeeButton;
+        private System.Windows.Forms.TextBox EditFioEmployee;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.DateTimePicker AddEmpEmployeeData;
+        private System.Windows.Forms.DateTimePicker AddDOBEmployeeData;
+        private System.Windows.Forms.DateTimePicker EditEmpEmployeeData;
+        private System.Windows.Forms.DateTimePicker EditDOBEmployeeData;
+        private MySql.Data.MySqlClient.MySqlDataAdapter mySqlDataAdapter1;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage tabPage22;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TabPage tabPage23;
+        private System.Windows.Forms.Button DeleteTableSheet;
+        private System.Windows.Forms.DataGridView dataGridWatchTableSheet;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox DatetableBox;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button AddTableSheet;
     }
 }
 

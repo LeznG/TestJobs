@@ -15,6 +15,7 @@ namespace WindowsFormsApp1
             UpdateOrganization();
             UpdateSubdivision();
             UpdatePost();
+            UpdateEmployee();
         }
         /// <summary>
         /// Обвноление датагрида для таблицы Организации
@@ -57,11 +58,14 @@ namespace WindowsFormsApp1
             command.ExecuteNonQuery();
             myConnection.Close();
         }
+        /// <summary>
+        /// Загрузка данных в dataGrid таблицы Должности
+        /// </summary>
         public void UpdatePost()
         {
             myConnection.Open();
             string query = @"SELECT [Id]
-                                   ,[Name_Post]
+                                   ,[Name_Post] as 'Должность'
                              FROM [dbo].[Post]";
 
             SqlCommand command = new SqlCommand(query, myConnection);
@@ -78,6 +82,65 @@ namespace WindowsFormsApp1
             command.ExecuteNonQuery();
             myConnection.Close();
         }
+        /// <summary>
+        /// Загрузка данных в dataGrid таблицы Сотрудники
+        /// </summary>
+        public void UpdateEmployee()
+        {
+            myConnection.Open();
+            string query = @"SELECT [Employee].[Id]
+                                ,[Name_Org] as 'Подразделение'
+                                ,[Name_Post] as 'Должность' 
+                                ,[FIO] as 'ФИО'
+                                ,[Birth_Date] 'Дата Рождения'
+                                ,[Date_of_employment] as 'Дата трудоустройства' 
+                             FROM [dbo].[Employee]
+                             LEFT JOIN [dbo].[Subdivision] ON [Subdivision].[Id] = [Employee].[Id_Subdivision]
+                             LEFT JOIN [dbo].[Post] ON [Post].[Id] = [Employee].[Id_Post]";
+
+            SqlCommand command = new SqlCommand(query, myConnection);
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            dataGridWatchEmployee.DataSource = dt;
+            dataGridWatchEmployee.Columns[0].Visible = false;
+
+
+            command.ExecuteNonQuery();
+            myConnection.Close();
+        }
+        /// <summary>
+        /// Загрузка данных в dataGrid таблицы Табель учёта рабочего времени
+        /// </summary>
+        public void UpdateTableSheet()
+        {
+            dataGridWatchTableSheet.Columns[0].Visible = false;
+            dataGridWatchTableSheet.Columns[1].Width = 50;
+            dataGridWatchTableSheet.Columns[2].Width = 100;
+            dataGridWatchTableSheet.Columns[3].Width = 100;
+            try
+            {
+                for(int i = 0; i < ((DataTable)dataGridWatchTableSheet.DataSource).Columns.Count; i++)
+                {
+                    int n;
+                    bool isnumeric = int.TryParse(dataGridWatchTableSheet.Columns[i].Name, out n);
+                    if (isnumeric == true)
+                    {
+                        dataGridWatchTableSheet.Columns[i].Width = 25;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: данная строка кода позволяет загрузить данные в таблицу "timesheetDataSet.Organization". При необходимости она может быть перемещена или удалена.
@@ -93,7 +156,8 @@ namespace WindowsFormsApp1
         {
             using (SqlConnection connection = new SqlConnection(connectString))
             {
-                SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Organization] ([Name_orgn],[Address],[Inn]) " +
+                SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Organization] " +
+                    "([Name_orgn],[Address],[Inn]) " +
                     "VALUES" +
                     "(@Name_orgn, " +
                     "@Address," +
@@ -245,13 +309,13 @@ namespace WindowsFormsApp1
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
 
-                string qwe;
+                string check;
 
                 if (reader.HasRows) // если есть данные
                 {
                     reader.Read();
-                    qwe = reader.GetValue(0).ToString();
-                    cmd.Parameters.AddWithValue("@Id_Organization", qwe);
+                    check = reader.GetValue(0).ToString();
+                    cmd.Parameters.AddWithValue("@Id_Organization", check);
                     reader.Close();
                 }
 
@@ -288,10 +352,6 @@ namespace WindowsFormsApp1
                 DataSet ds = new DataSet();
                 da.Fill(ds, "Subdivision");
 
-                OrganizationFK.ValueMember = "Id_Organization";
-                OrganizationFK.DisplayMember = "Name_orgn";
-                OrganizationFK.DataSource = ds.Tables["Subdivision"];
-
                 UpdateSubdivison.ValueMember = "Id";
                 UpdateSubdivison.DisplayMember = "Name_org";
                 UpdateSubdivison.DataSource = ds.Tables["Subdivision"];
@@ -299,6 +359,20 @@ namespace WindowsFormsApp1
                 DeleteSubdivision.ValueMember = "Id";
                 DeleteSubdivision.DisplayMember = "Name_org";
                 DeleteSubdivision.DataSource = ds.Tables["Subdivision"];
+
+                connection.Close();
+
+
+                 query = @"SELECT [Id],[Name_orgn],[Address],[Inn] FROM [dbo].[Organization]";
+
+                da = new SqlDataAdapter(query, connection);
+                connection.Open();
+                ds = new DataSet();
+                da.Fill(ds, "Organization");
+
+                OrganizationFK.ValueMember = "Id";
+                OrganizationFK.DisplayMember = "Name_orgn";
+                OrganizationFK.DataSource = ds.Tables["Organization"];
 
                 connection.Close();
 
@@ -450,8 +524,8 @@ namespace WindowsFormsApp1
             using (SqlConnection connection = new SqlConnection(connectString))
             {
                 string query = @"SELECT [Id]
-                                        ,[Name_Post]
-                                 FROM [dbo].[Post]
+                                       ,[Name_Post]
+                                    FROM [dbo].[Post]
                                     WHERE[Name_Post] = '" + UpdPostBox.Text + "'";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, connection);
@@ -478,7 +552,7 @@ namespace WindowsFormsApp1
         {
             using (SqlConnection connection = new SqlConnection(connectString))
             {
-                //comboBox1.SelectedValue.ToString()
+                
                 connection.Open();
                 SqlCommand cmd = new SqlCommand("UPDATE [dbo].[Post] SET " +
                                                        "Name_Post = @Name_Post " +
@@ -502,7 +576,8 @@ namespace WindowsFormsApp1
         {
             using (SqlConnection connection = new SqlConnection(connectString))
             {
-                SqlCommand cmd = new SqlCommand("DELETE FROM [dbo].[Post] WHERE [Name_Post] = '" + UpdPostBox.Text + "'");
+                SqlCommand cmd = new SqlCommand("DELETE FROM [dbo].[Post] " +
+                                                    "WHERE [Name_Post] = '" + UpdPostBox.Text + "'");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
 
@@ -513,6 +588,480 @@ namespace WindowsFormsApp1
             }
 
             UpdatePost();
+        }
+        /// <summary>
+        /// Загрузка данных в combobox при переходе во вкладку сотрудники
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Employee_Click(object sender, EventArgs e)
+        {
+            AddEmloyeeSubBox.DropDownStyle = ComboBoxStyle.DropDownList;        // бокс выбор подразделения(вкладка добавление)
+            AddEmployeePostBox.DropDownStyle = ComboBoxStyle.DropDownList;      // бокс выбор должности (вкладка добавление)
+            EditFioEmloyeeSubBox.DropDownStyle = ComboBoxStyle.DropDownList;    // бокс выбор сотрудника(вкладка редактирование)
+            EditEmloyeeSubBox.DropDownStyle = ComboBoxStyle.DropDownList;       // бокс выбор подразделения(вкладка редактирование)
+            EditEmployeePostBox.DropDownStyle = ComboBoxStyle.DropDownList;     // бокс выбор Должности(вкладка редактирование)
+            DelEmloyeeSubBox.DropDownStyle = ComboBoxStyle.DropDownList;        // бокс выбор сотрудника(вкладка удаление)
+
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                string Sub = @"SELECT [Id]
+                                      ,[Id_Organization]
+                                      ,[Name_Org]
+                                  FROM [dbo].[Subdivision]";
+
+                SqlDataAdapter da = new SqlDataAdapter(Sub, connection);
+                connection.Open();
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Subdivision");
+
+                AddEmloyeeSubBox.ValueMember = "Id";
+                AddEmloyeeSubBox.DisplayMember = "Name_Org";
+                AddEmloyeeSubBox.DataSource = ds.Tables["Subdivision"];
+
+                EditEmloyeeSubBox.ValueMember = "Id";
+                EditEmloyeeSubBox.DisplayMember = "Name_Org";
+                EditEmloyeeSubBox.DataSource = ds.Tables["Subdivision"];
+
+                connection.Close();
+
+                string query = @"SELECT [Id]
+                                      ,[Name_Post]
+                                  FROM [dbo].[Post]";
+
+                SqlDataAdapter da1 = new SqlDataAdapter(query, connection);
+                connection.Open();
+                DataSet ds1 = new DataSet();
+                da1.Fill(ds1, "Post");
+
+                AddEmployeePostBox.ValueMember = "Id";
+                AddEmployeePostBox.DisplayMember = "Name_Post";
+                AddEmployeePostBox.DataSource = ds1.Tables["Post"];
+
+                EditEmployeePostBox.ValueMember = "Id";
+                EditEmployeePostBox.DisplayMember = "Name_Post";
+                EditEmployeePostBox.DataSource = ds1.Tables["Post"];
+
+                connection.Close();
+
+                string edit = @"SELECT [Id]
+                                  ,[FIO]
+                              FROM [dbo].[Employee]";
+
+                SqlDataAdapter ea1 = new SqlDataAdapter(edit, connection);
+                connection.Open();
+                DataSet es1 = new DataSet();
+                ea1.Fill(es1, "Employee");
+
+                EditFioEmloyeeSubBox.ValueMember = "Id";
+                EditFioEmloyeeSubBox.DisplayMember = "FIO";
+                EditFioEmloyeeSubBox.DataSource = es1.Tables["Employee"];
+
+                DelEmloyeeSubBox.ValueMember = "Id";
+                DelEmloyeeSubBox.DisplayMember = "FIO";
+                DelEmloyeeSubBox.DataSource = es1.Tables["Employee"];
+
+
+                connection.Close();
+            }
+        }
+        /// <summary>
+        /// Добавление сотрудника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddEmployeeButton_Click(object sender, EventArgs e)
+        {
+            //comboBox1.SelectedValue.ToString()
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Employee] " +
+                                                       "([Id_Subdivision]" +
+                                                       ",[Id_Post]" +
+                                                       ",[FIO]" +
+                                                       ",[Birth_Date]" +
+                                                       ",[Date_of_employment])" +
+                                                    "VALUES" +
+                                                       "(@Id_Subdivision, " +
+                                                       "@Id_Post, " +
+                                                       "@FIO, " +
+                                                       "@Birth_Date, " +
+                                                       "@Date_of_employment)");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                connection.Open();
+
+                cmd.Parameters.AddWithValue("@Id_Subdivision", AddEmloyeeSubBox.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@Id_Post", AddEmployeePostBox.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@FIO", AddFioText.Text);
+                cmd.Parameters.AddWithValue("@Birth_Date", AddDOBEmployeeData.Value.ToString("dd.mm.yyyy"));
+                cmd.Parameters.AddWithValue("@Date_of_employment", AddEmpEmployeeData.Value.ToString("dd.mm.yyyy"));
+
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+                MessageBox.Show("Сотрудник: " + AddFioText.Text + " Добавлен");
+            }
+            UpdateSubdivision();
+        }
+        /// <summary>
+        /// Редактирование сотрудника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditEmployeeButton_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE [dbo].[Employee] SET " +
+                                                       "Id_Subdivision = @Id_Subdivision, " +
+                                                       "Id_Post = @Id_Post, " +
+                                                       "FIO = @FIO, " +
+                                                       "Birth_Date = @Birth_Date, " +
+                                                       "Date_of_employment = @Date_of_employment " +
+                                                    "WHERE Id = '" + EditFioEmloyeeSubBox.SelectedValue.ToString() + "'");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Id_Subdivision", EditEmloyeeSubBox.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@Id_Post", EditEmployeePostBox.SelectedValue.ToString());
+                cmd.Parameters.AddWithValue("@FIO", EditFioEmployee.Text);
+                cmd.Parameters.AddWithValue("@Birth_Date", EditDOBEmployeeData.Value);
+                cmd.Parameters.AddWithValue("@Date_of_employment", EditEmpEmployeeData.Value);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            MessageBox.Show("Данные сотрудника: " + EditFioEmloyeeSubBox.Text + " изменены");
+            UpdateEmployee();
+        }
+        /// <summary>
+        /// Удаление сотрудника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeleteEmployeeButton_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM [dbo].[Employee] " +
+                                                    "WHERE [Id] = '" + EditFioEmloyeeSubBox.SelectedValue.ToString() + "'");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+                MessageBox.Show("Сотрудник: " + EditFioEmloyeeSubBox.Text + " Удалён.");
+            }
+
+            UpdateEmployee();
+        }
+        /// <summary>
+        /// заполнение всех полей при выборе сотрудника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditFioEmloyeeSubBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                string query = @"SELECT  [Employee].[Id]
+                                        ,[Id_Subdivision]
+                                        ,[Id_Post]
+                                        ,[FIO]
+                                        ,[Birth_Date]
+                                        ,[Date_of_employment]
+                                    FROM [dbo].[Employee]
+                                    LEFT JOIN [dbo].[Subdivision] ON [Subdivision].[Id] = [Employee].[Id_Subdivision]
+	                                LEFT JOIN [dbo].[Post] ON [Post].[Id] = [Employee].[Id_Post]
+                                    WHERE [Employee].[Id] = '" + EditFioEmloyeeSubBox.SelectedValue.ToString() + "'";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                connection.Open();
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Employee");
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows) // если есть данные
+                {
+                    reader.Read();
+                    EditEmloyeeSubBox.SelectedValue = reader.GetValue(1).ToString();
+                    EditEmployeePostBox.SelectedValue = reader.GetValue(2).ToString();
+                    EditFioEmployee.Text     = reader.GetValue(3).ToString();
+                    EditDOBEmployeeData.Text     = reader.GetValue(4).ToString();
+                    EditEmpEmployeeData.Text     = reader.GetValue(5).ToString();
+
+                }
+            }
+        }
+        /// <summary>
+        /// Заполенение бокса датами табелей
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TabControl1_Click(object sender, EventArgs e)
+        {
+            DatetableBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                string query = @"SELECT [Id]
+                                      ,[Date_Create]
+                                  FROM [dbo].[Tabel]";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                connection.Open();
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Tabel");
+
+                DatetableBox.ValueMember = "Id";
+                DatetableBox.DisplayMember = "Date_Create";
+                DatetableBox.DataSource = ds.Tables["Tabel"];
+
+                connection.Close();
+
+            }
+        }
+        /// <summary>
+        /// Вывод табеля по дате
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DatetableBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            myConnection.Open();
+            string query = @"SELECT [Timesheet].[Id]
+                                ,[Id_table] as 'Номер табеля'
+                                ,[Name_Org] as 'Подразделение'
+                                ,[FIo] as 'Сотрудник'
+                                ,[1]
+                                ,[2]
+                                ,[3]
+                                ,[4]
+                                ,[5]
+                                ,[6]
+                                ,[7]
+                                ,[8]
+                                ,[9]
+                                ,[10]
+                                ,[11]
+                                ,[12]
+                                ,[13]
+                                ,[14]
+                                ,[15]
+                                ,[16]
+                                ,[17]
+                                ,[18]
+                                ,[19]
+                                ,[20]
+                                ,[21]
+                                ,[22]
+                                ,[23]
+                                ,[24]
+                                ,[25]
+                                ,[26]
+                                ,[27]
+                                ,[28]
+                                ,[29]
+                                ,[30]
+                                ,[31]
+                                ,[Hours_Worked] 'Количество рабочих часов' 
+                                ,[Sick_days] 'Больничных дней' 
+                                ,[Vacation_days] 'Отпускных дней'
+                            FROM [dbo].[TimeSheet]
+                            LEFT JOIN [dbo].[Tabel] ON [Tabel].[Id] = [Timesheet].[Id_table]
+	                        LEFT JOIN [dbo].[Subdivision] ON [Subdivision].[Id] = [Timesheet].[Id_Subdivision]
+	                        LEFT JOIN [dbo].[Employee] ON [Employee].[Id] = [Timesheet].[Id_employee]
+                            WHERE [Id_table] = '" + DatetableBox.SelectedValue.ToString() + "'";
+
+            SqlCommand command = new SqlCommand(query, myConnection);
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            dataGridWatchTableSheet.DataSource = dt;
+            command.ExecuteNonQuery();
+            UpdateTableSheet();
+            myConnection.Close();
+        }
+        /// <summary>
+        /// Создание нового табеля
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddTableSheet_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO [dbo].[Tabel] " +
+                                                    "([Date_Create]) " +
+                                                    "VALUES (@Date_Create)");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Date_Create", DateTime.Now);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+                cmd = new SqlCommand(@"INSERT INTO [dbo].[TimeSheet] 
+                                        	([1])
+                                            VALUES (Null)");
+
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+                connection.Close();
+
+                myConnection.Open();
+
+                string query = @"SELECT TOP 1 [Timesheet].[Id]
+                                ,[Id_table] as 'Номер табеля'
+                                ,[Name_Org] as 'Подразделение'
+                                ,[FIo] as 'Сотрудник'
+                                ,[1]
+                                ,[2]
+                                ,[3]
+                                ,[4]
+                                ,[5]
+                                ,[6]
+                                ,[7]
+                                ,[8]
+                                ,[9]
+                                ,[10]
+                                ,[11]
+                                ,[12]
+                                ,[13]
+                                ,[14]
+                                ,[15]
+                                ,[16]
+                                ,[17]
+                                ,[18]
+                                ,[19]
+                                ,[20]
+                                ,[21]
+                                ,[22]
+                                ,[23]
+                                ,[24]
+                                ,[25]
+                                ,[26]
+                                ,[27]
+                                ,[28]
+                                ,[29]
+                                ,[30]
+                                ,[31]
+                                ,[Hours_Worked] 'Количество рабочих часов' 
+                                ,[Sick_days] 'Больничных дней' 
+                                ,[Vacation_days] 'Отпускных дней'
+                            FROM [dbo].[TimeSheet]
+                            LEFT JOIN [dbo].[Tabel] ON [Tabel].[Id] = [Timesheet].[Id_table]
+	                        LEFT JOIN [dbo].[Subdivision] ON [Subdivision].[Id] = [Timesheet].[Id_Subdivision]
+	                        LEFT JOIN [dbo].[Employee] ON [Employee].[Id] = [Timesheet].[Id_employee]
+                            ORDER
+                            BY Id DESC";
+
+                SqlCommand command = new SqlCommand(query, myConnection);
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                dataGridView1.DataSource = dt;
+                command.ExecuteNonQuery();
+                UpdateTableSheet();
+                
+
+                myConnection.Close();
+
+            }
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectString))
+            {
+                string query = @"SELECT TOP 1 [Timesheet].[Id]
+                                ,[Id_table] as 'Номер табеля'
+                                ,[Name_Org] as 'Подразделение'
+                                ,[FIo] as 'Сотрудник'
+                                ,[1]
+                                ,[2]
+                                ,[3]
+                                ,[4]
+                                ,[5]
+                                ,[6]
+                                ,[7]
+                                ,[8]
+                                ,[9]
+                                ,[10]
+                                ,[11]
+                                ,[12]
+                                ,[13]
+                                ,[14]
+                                ,[15]
+                                ,[16]
+                                ,[17]
+                                ,[18]
+                                ,[19]
+                                ,[20]
+                                ,[21]
+                                ,[22]
+                                ,[23]
+                                ,[24]
+                                ,[25]
+                                ,[26]
+                                ,[27]
+                                ,[28]
+                                ,[29]
+                                ,[30]
+                                ,[31]
+                                ,[Hours_Worked] 'Количество рабочих часов' 
+                                ,[Sick_days] 'Больничных дней' 
+                                ,[Vacation_days] 'Отпускных дней'
+                            FROM [dbo].[TimeSheet]
+                            LEFT JOIN [dbo].[Tabel] ON [Tabel].[Id] = [Timesheet].[Id_table]
+	                        LEFT JOIN [dbo].[Subdivision] ON [Subdivision].[Id] = [Timesheet].[Id_Subdivision]
+	                        LEFT JOIN [dbo].[Employee] ON [Employee].[Id] = [Timesheet].[Id_employee]
+                            ORDER
+                            BY Id DESC";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, connection);
+                connection.Open();
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Tabel");
+
+                DatetableBox.ValueMember = "Id";
+                DatetableBox.DisplayMember = "Name_Org";
+                DatetableBox.DataSource = ds.Tables["Tabel"];
+
+
+                connection.Close();
+
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Microsoft.Office.Interop.Excel.Application XlApp = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel.Workbook XlWorkBook = XlApp.Workbooks.Add(); //создать новый файл: XlApp.Workbooks.Add();
+            Microsoft.Office.Interop.Excel.Worksheet XlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)XlWorkBook.Worksheets.get_Item(1); //1-й лист по порядку
+            for (int i = 0; i < dataGridWatchTableSheet.Rows.Count; i++)
+            {
+
+                for (int j = 0; j < dataGridWatchTableSheet.ColumnCount; j++)
+                {
+                    XlWorkSheet.Cells[1, j + 1] = dataGridWatchTableSheet.Columns[j].HeaderText.ToString();
+                    XlWorkSheet.Cells[i + 2, j + 1] = dataGridWatchTableSheet.Rows[i].Cells[j].Value;
+                }
+            }
+            XlApp.Visible = true;
         }
     }
 }
