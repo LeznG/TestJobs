@@ -3,6 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace WindowsFormsApp1
 {
@@ -1107,22 +1108,40 @@ namespace WindowsFormsApp1
         {
            
         }
-
+        /// <summary>
+        /// Экспорт таблицы в Excel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
+
             Microsoft.Office.Interop.Excel.Application XlApp = new Microsoft.Office.Interop.Excel.Application();
             Microsoft.Office.Interop.Excel.Workbook XlWorkBook = XlApp.Workbooks.Add(); //создать новый файл: XlApp.Workbooks.Add();
             Microsoft.Office.Interop.Excel.Worksheet XlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)XlWorkBook.Worksheets.get_Item(1); //1-й лист по порядку
+            XlWorkSheet.Name = "Табель учёта времени";
+
+            Microsoft.Office.Interop.Excel.Range r = XlWorkSheet.get_Range("A1", "AL40");
+
+            Excel.Range rowHeight = XlWorkSheet.get_Range("A1", "AL40");
+
+            //Оформления
+            r.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter; //
+            r.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter; //
+
             for (int i = 0; i < dataGridWatchTableSheet.Rows.Count; i++)
             {
 
-                for (int j = 0; j < dataGridWatchTableSheet.ColumnCount; j++)
+                for (int j = 1; j < dataGridWatchTableSheet.ColumnCount; j++)
                 {
                     XlWorkSheet.Cells[1, j + 1] = dataGridWatchTableSheet.Columns[j].HeaderText.ToString();
                     XlWorkSheet.Cells[i + 2, j + 1] = dataGridWatchTableSheet.Rows[i].Cells[j].Value;
                 }
             }
             XlApp.Visible = true;
+            // настраиваем ширину и высоту ячеек
+            XlWorkSheet.Columns.AutoFit();
+            XlWorkSheet.Rows.AutoFit();
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -1482,7 +1501,7 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

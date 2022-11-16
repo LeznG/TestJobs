@@ -32,3 +32,5 @@ C:\Users\Banan\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsF
 C:\Users\Banan\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CopyComplete
 C:\Users\Banan\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\Banan\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\Banan\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\Banan\source\repos\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\DocumentFormat.OpenXml.xml
